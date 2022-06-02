@@ -4,7 +4,13 @@
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
-sudo umount /dev/sda1 
-sudo mount /dev/sda1 /media/
-feh --bg-scale ~/Pictures/DiscoRev.jpg
-wal -i Pictures/DiscoRev.jpg
+if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -le 3 ]; then
+	exec startx
+fi
+# Created by `pipx` on 2022-04-02 20:10:39
+export PATH="$PATH:/home/jasper/.local/bin"
+export PATH="$PATH:/media/Applications/FoundryVTT"
+export PATH="$PATH:/media/Applications/Pysistant/src/"
+export PATH="$PATH:/home/jasper/notes/"
+
+systemctl --user import-environment PATH
