@@ -1,15 +1,15 @@
 call plug#begin('~/.vim/plugged')
 "Plug 'dylanaraps/wal.vim'
-"Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline'
 Plug 'vimwiki/vimwiki'
 Plug 'mikewest/vimroom'
 Plug 'rhysd/vim-grammarous'
-"Plug 'tpope/vim-fugitive'
-"Plug 'preservim/nerdtree'
-"Plug 'ycm-core/YouCompleteMe'
-"Plug 'jiangmiao/auto-pairs'
-"Plug 'ntpeters/vim-better-whitespace'
-"Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-fugitive'
+Plug 'preservim/nerdtree'
+Plug 'ycm-core/YouCompleteMe'
+Plug 'jiangmiao/auto-pairs'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'sheerun/vim-polyglot'
 "Plug 'matze/vim-move'
 call plug#end()
 
@@ -29,7 +29,7 @@ let g:grammarous#use_vim_spelllang=1
 
 " TAB SETTINGS
 set tabstop=4 softtabstop=4
-set shiftwidth=4 
+set shiftwidth=4
 set expandtab
 set smartindent
 
@@ -52,3 +52,5 @@ let g:goyo_margin_bottom = 10
 
 let g:better_whitespace_enabled=1
 let g:strip_whitespace_on_save=1
+
+set number relativenumber

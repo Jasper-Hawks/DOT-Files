@@ -26,13 +26,15 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from libqtile import bar, layout, widget, extension
+import os, subprocess
+from libqtile import bar, layout, widget, extension, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
 mod = "mod1"
 terminal = "kitty"
+
 
 keys = [
     # A list of available commands that can be bound to keys can be found
@@ -42,6 +44,7 @@ keys = [
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
+    Key([mod], "t", lazy.window.toggle_floating(), desc="Toggle floating window"),
     Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
     # Move windows between left/right columns or move up/down in current stack.
     # Moving out of range in Columns layout will create new column.
@@ -71,10 +74,11 @@ keys = [
     Key([mod], "f", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod,"shift"], "q", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "shift"], "r", lazy.reload_config(), desc="Reload the config"),
+    Key([mod, "shift"], "x", lazy.spawn("xscreensaver-command -lock"), desc="Reload the config"),
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
     Key(['mod1'], 'd', lazy.run_extension(extension.DmenuRun(
         dmenu_prompt=">",
-        dmenu_font="Andika-8",
+        dmenu_font="Andika-12",
         background="#15181a",
         foreground="#00ff00",
         selected_background="#079822",
@@ -111,7 +115,10 @@ for i in groups:
     )
 
 layouts = [
-    layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
+    layout.Columns(
+        border_focus_stack=["#d75f5f", "#8f3d3d"],
+        border_width=4,
+        margin=10),
     layout.Max(),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
@@ -127,13 +134,13 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font="sans",
+    font="monospace",
     fontsize=12,
     padding=3,
 )
 extension_defaults = widget_defaults.copy()
 
-screens = [ 
+screens = [
     Screen(
         top=bar.Bar(
             [
@@ -226,3 +233,10 @@ wl_input_rules = None
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
 wmname = "LG3D"
+
+@hook.subscribe.startup_once
+def autostart():
+    home = os.path.expanduser('~/.config/qtile/autostart.sh')
+    subprocess.call([home])
+
+autostart()
