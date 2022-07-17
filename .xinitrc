@@ -9,6 +9,12 @@ sysmodmap=/etc/X11/xinit/.Xmodmap
 
 if [ -f $sysresources ]; then
 
+
+
+
+
+
+
     xrdb -merge $sysresources
 
 fi
@@ -18,6 +24,12 @@ if [ -f $sysmodmap ]; then
 fi
 
 if [ -f "$userresources" ]; then
+
+
+
+
+
+
 
     xrdb -merge "$userresources"
 
@@ -36,24 +48,19 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-xrandr --output DP-4  --mode 2560x1440 --rate 165
-xrandr --output DP-2 --mode 2560x1440 --rate 165 --auto --right-of DP-4
+########twm &
+########xclock -geometry 50x50-1+1 &
+########xterm -geometry 80x50+494+51 &
+########xterm -geometry 80x20+494-0 &
+########exec xterm -geometry 80x66+0+0 -name login
 
-export ICAROOT="/media/Applications/citrix/citrix/"
+xrandr --output DP-4 --mode 2560x1440 --rate 165 --right-of DP-2
+xrandr --output DP-2 --mode 2560x1440 --rate 165 
 
-wal -R && razer-cli -a
+wal -R 
 
-# Run compositor as a daemon
-picom -b
-#   twm &
-#   xclock -geometry 50x50-1+1 &
-#   xterm -geometry 80x50+494+51 &
-#   xterm -geometry 80x20+494-0 &
-#   xterm -geometry 80x66+0+0 -name login &
+exec xcompmgr &
+exec dwm &
+exec dwmblocks 
 
-exec dwmblocks &
-exec dwm
-
-# Change caps lock to escape
-setxkbmap -option caps:escape
 

@@ -6,4 +6,4 @@ My DOT Files used on my desktop
 * Shell - [Bash](https://www.gnu.org/software/bash/)
 * Bar - [dwmblocks](https://github.com/torrinfail/dwmblocks)
 * Text Editor [Neovim](https://neovim.io/)
-* Terminal - [Kitty](https://sw.kovidgoyal.net/kitty/)
+* Terminal - [st](https://st.suckless.org/)

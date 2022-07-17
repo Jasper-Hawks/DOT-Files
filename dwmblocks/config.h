@@ -43,7 +43,6 @@ static const char delimiter[] = {'|', DELIMITERENDCHAR };
 
 static Block blocks[] = {
 /*      pathu                           pathc                           interval        signal */
-        { PATH("volume.sh"),            PATH("volume_button.sh"),       0,              2},
         { PATH("calendar.sh"),          NULL,                           0,             1},
         { NULL } /* just to mark the end of the array */
 };
