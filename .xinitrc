@@ -3,10 +3,7 @@
 userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
-sysmodmap=/etc/X11/xinit/.Xmodmap
-
-# merge in defaults and keymaps
-
+sysmodmap=/etc/X11/xinit/.Xmodmap # merge in defaults and keymaps
 if [ -f $sysresources ]; then
 
 
@@ -55,12 +52,13 @@ fi
 ########exec xterm -geometry 80x66+0+0 -name login
 
 xrandr --output DP-4 --mode 2560x1440 --rate 165 --right-of DP-2
-xrandr --output DP-2 --mode 2560x1440 --rate 165 
+xrandr --output DP-2 --mode 2560x1440 --rate 165
 
-wal -R 
+wal -R
+cp $HOME/.config/wal/templates/colors-wal-dwm.h $HOME/.cache/wal/colors-wal-dwm.h &
 
 exec xcompmgr &
 exec dwm &
-exec dwmblocks 
+exec dwmblocks
 
 
