@@ -1,1 +1,0 @@
-/media/Applications/st/README.terminfo.rst
