@@ -53,11 +53,15 @@ fi
 xrandr --output DP-4 --mode 2560x1440 --rate 165 --right-of DP-2
 xrandr --output DP-2 --mode 2560x1440 --rate 165
 
+
 wal -R
+
 #cp $HOME/.config/wal/templates/colors-wal-dwm.h $HOME/.cache/wal/colors-wal-dwm.h &
 #exec qtile start
 
-exec xcompmgr & 
+xbindkeys
+
+exec xcompmgr &
 exec dwm &
 exec dwmblocks
 
