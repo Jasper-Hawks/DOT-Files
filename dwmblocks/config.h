@@ -43,6 +43,8 @@ static const char delimiter[] = { ' ', '|', ' ', DELIMITERENDCHAR };
 
 static Block blocks[] = {
 /*      pathu                           pathc                           interval        signal */
+        { PATH("pack.sh"),          NULL,                           100,             5},
+        { PATH("ram.sh"),          NULL,                           1,             4},
         { PATH("cmus.sh"),          NULL,                           1,             3},
         { PATH("jasperVolume.sh"),          NULL,                           1,             2},
         { PATH("calendar.sh"),          NULL,                           30,             1},
