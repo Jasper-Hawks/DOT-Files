@@ -7,7 +7,7 @@
  */
 #include "/home/jasper/.cache/wal/colors-wal-st.h"
 
-static char *font = "Liberation Mono:pixelsize=16:antialias=true:autohint=true";
+static char *font = "Consolas Regular:pixelsize=16:antialias=true:autohint=true";
 static int borderpx = 2;
 
 /*

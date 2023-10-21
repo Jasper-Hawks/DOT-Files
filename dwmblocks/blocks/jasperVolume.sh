@@ -1,3 +1,3 @@
 #!/bin/sh
 
-printf "%s" "🔊$(pulsemixer --id sink-1 --get-volume | sed 's/.[0-9]*$/\%/')"
+printf "%s" "🔊$(pulsemixer --id sink-0 --get-volume | sed 's/.[0-9]*$/\%/')"

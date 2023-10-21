@@ -1,5 +1,5 @@
 /* macro for conveniently specifying pathu and pathc below */
-#define PATH(name)                      "/media/Applications/dwmblocks/blocks/"name
+#define PATH(name)                      "/home/jasper/git/DOT-Files/dwmblocks/blocks/"name
 
 /* buffer size for capturing output of the programs used for updating blocks */
 #define CMDOUTLENGTH                    50

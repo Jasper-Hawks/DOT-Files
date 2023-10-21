@@ -1,0 +1,156 @@
+#+TITLE Jasper Hawks' Emacs Config
+#+AUTHOR: Jasper Hawks
+#+STARTUP: showeverything
+#+OPTIONS: toc:2
+
+* TODO Add docs links to all packages
+** MELPA Package Manager
+#+begin_src emacs-lisp
+    (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+    (package-initialize)
+    (package-refresh-contents)
+#+end_src
+
+** EMACS Settings
+#+begin_src emacs-lisp
+    (add-to-list 'default-frame-alist '(background-color . "#020C2F"))
+    (add-to-list 'default-frame-alist '(foreground-color . "white"))
+  ;; Disable emacs tool bar, menu bar, add scrollbars
+      (menu-bar-mode -1)
+      (tool-bar-mode -1)
+      (scroll-bar-mode -1)
+      ;; Enable cua mode
+      (cua-mode 1)
+      ;; Enable battery mode
+      (display-battery-mode 1)
+      (setq make-backup-files nil)
+      (setq auto-save-default nil)
+
+#+end_src
+#+begin_src emacs-lisp
+  (unless (equal (user-real-uid) 0)
+    (unless (getenv "SSH_CONNECTION")
+      (use-package server
+	:init
+	(setq server-use-tcp t
+	      server-port 51313
+	      server-auth-key ; 64 chars, saved in ~/.emacs.d/server/server.
+	      "looph8oow3Aph5ahje1eek1aish3Ohthu4Paengae0iketohGhaemi2iek5ae4ee")
+	:config
+	(unless (eq (server-running-p) t) ; Run server if not t.
+	    (server-start)))))
+
+(use-package tramp
+  :custom
+  (tramp-use-ssh-controlmaster-options nil) ; Don't override SSH config.
+  (tramp-default-method "ssh")    ; ssh is faster than scp and supports ports.
+    )
+
+#+end_src
+
+** PACKAGES
+*** EVIL Setup
+#+begin_src emacs-lisp
+  ;; Enable Evil
+  (use-package evil
+  :init
+  (setq evil-want-keybinding nil)
+  (evil-mode))
+  ;;(global-evil-leader-mode)
+  ;;(global-unset-key (kbd "<space>"))
+  ;;(define-key
+  ;;(global-unset-key "SPC" nil)
+#+end_src
+*** SUDO EDIT Setup
+#+begin_src emacs-lisp
+  (require 'sudo-edit)
+
+#+end_src
+*** DASHBOARD Setup
+#+begin_src emacs-lisp
+       ;; Dashboard
+       (dashboard-setup-startup-hook)
+       ;;(setq dashboard-banner-logo-title "Welcome Test")
+       ;; Enable on emacsclient
+       (setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
+#+end_src
+*** [ [IVY][https://oremacs.com/swiper/]] Customization
+#+begin_src emacs-lisp
+  ;; ivy customization
+ ;; (require 'ivy-rich)
+  ;;(ivy-rich-mode 1)
+  (use-package ivy
+  :custom
+      (ivy-use-virtual-buffers t)
+      (ivy-count-format "(%d/%d)")
+  :config (ivy-mode 1)
+  )
+; (use-package ivy-rich
+; (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
+; :after ivy
+; :custom
+; (ivy-virtual-abbreviate 'full
+;			  ivy-rich-switch-buffer-align-virtual-buffer t
+;			  ivy-rich-path-style 'abbrev)
+; :config
+;     (ivy-set-display-transformer 'ivy-switch-buffer
+;     'ivy-rich-switch-buffer-transformer)
+
+; )
+#+end_src
+
+*** GENERAL Keybinds
+#+begin_src emacs-lisp
+  ;; general package
+  (use-package general
+  :config
+    (general-evil-setup)
+    (general-create-definer Jasper/leader
+    :states '(general normal insert visual emacs)
+    :keymaps 'override
+    :prefix "SPC"
+    :non-normal-prefix "M-SPC")
+
+
+    (Jasper/leader
+    "!" 'shell-command
+    ":" 'eval-expression)
+
+    ;; Buffer prefix
+    (Jasper/leader
+    "b" '(:ignore t :wk "buffer")
+    "bd" '(kill-buffer :wk "Kill buffer")
+    "<" '(switch-to-buffer :wk "Switch buffer")
+    )
+
+    ;; Window prefix
+    (Jasper/leader
+    "w" '(:ignore t :wk "window")
+    "wr" '(split-window-right :wk "Split window right")
+    "wd" '(kill-buffer :wk "Kill window")
+    )
+    ;File prefix
+    (Jasper/leader
+    "f" '(:ignore t :wk "file")
+    "ff" '(find-file :wk "Find file")
+    "fF" '(sudo-edit :wk "Sudo find file")
+    )
+  )
+#+end_src
+*** WHICH KEY Package
+#+begin_src emacs-lisp
+  ;; Configure which key to open on bottom
+  (which-key-setup-side-window-bottom)
+  (which-key-mode 1)
+#+end_src
+*** LSP Package
+#+begin_src emacs-lisp
+  ;; Start lsp mode
+  (require 'lsp-mode)
+  (add-hook 'XXX-mode-hook #'lsp)
+#+end_src
+*** Powerline Package
+#+begin_src emacs-lisp
+  ;; Start lsp mode
+  (require 'powerline-evil)
+#+end_src
