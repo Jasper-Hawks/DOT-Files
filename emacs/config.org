@@ -13,20 +13,36 @@
 
 ** EMACS Settings
 #+begin_src emacs-lisp
-  ;;  (add-to-list 'default-frame-alist '(background-color . "#020C2F"))
-  ;;  (add-to-list 'default-frame-alist '(foreground-color . "white"))
-    ;; Disable emacs tool bar, menu bar, add scrollbars
-	(load-theme 'wombat t)
+  (require 'ox-publish)
+  (setq org-publish-project-alist
+  '(
+  ("org-notes"
+  :base-directory "~/media/proj/"
+  :base-extension "org"
+  :publishing-directory "."
+  :recursive t
+  :publishing-function org-html-publish-to-html
+  :headline-levels 4
+  :auto-preamble t)
+  ("org" :components ("org-notes" "org-static"))
+  ))
+#+end_src
 
-	(menu-bar-mode -1)
-	(tool-bar-mode -1)
-	(scroll-bar-mode -1)
-	;; Enable cua mode
-	;;(cua-mode 1)
-	;; Enable battery mode
-	(display-battery-mode 1)
-	(setq make-backup-files nil)
-	(setq auto-save-default nil)
+#+begin_src emacs-lisp
+    ;;  (add-to-list 'default-frame-alist '(background-color . "#020C2F"))
+    ;;  (add-to-list 'default-frame-alist '(foreground-color . "white"))
+      ;; Disable emacs tool bar, menu bar, add scrollbars
+	  (load-theme 'wombat t)
+
+	  (menu-bar-mode -1)
+	  (tool-bar-mode -1)
+	  (scroll-bar-mode -1)
+	  ;; Enable cua mode
+	  ;;(cua-mode 1)
+	  ;; Enable battery mode
+	  (display-battery-mode 1)
+	  (setq make-backup-files nil)
+	  (setq auto-save-default nil)
 
 #+end_src
 #+begin_src emacs-lisp
@@ -104,6 +120,7 @@
 *** GENERAL Keybinds
 #+begin_src emacs-lisp
   ;; general package
+
   (use-package general
   :config
     (general-evil-setup)
@@ -125,12 +142,18 @@
     "be" '(eval-buffer :wk "Evaluate buffer")
     "<" '(switch-to-buffer :wk "Switch buffer")
     )
+    ;; Org prefix
+    (Jasper/leader
+    "o" '(:ignore t :wk "org")
+    "of" '(org-open-at-point :wk "Follow org links")
+    "wd" '(delete-window :wk "Kill window")
+    )
 
     ;; Window prefix
     (Jasper/leader
     "w" '(:ignore t :wk "window")
     "wr" '(split-window-right :wk "Split window right")
-    "wd" '(kill-buffer :wk "Kill window")
+    "wd" '(delete-window :wk "Kill window")
     )
     ;File prefix
     (Jasper/leader
@@ -183,7 +206,7 @@
 #+begin_src emacs-lisp
   (require 'projectile)
   (projectile-mode 1)
-    (setq projectile-project-search-path '("~/git/" ))
+    (setq projectile-project-search-path '("~/media/proj" ))
     ;; Recommended keymap prefix on Windows/Linux
     (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
     (projectile-mode +1)
